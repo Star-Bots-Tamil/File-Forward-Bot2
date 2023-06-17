@@ -67,6 +67,12 @@ async def forward_cmd(bot, message):
         target_chat = await bot.get_chat(target_chat_id)
     except Exception as e:
         return await message.reply(f'Error - {e}')
+
+    skip = temp_utils.CURRENT.get(message.from_user.id)
+    if skip:
+        skip = skip
+    else:
+        skip = 0
         
     caption = CAPTION.get(message.from_user.id)
     if caption:
@@ -80,7 +86,7 @@ async def forward_cmd(bot, message):
         InlineKeyboardButton("No", callback_data="close")
     ]]
     await message.reply_text(
-        text="**Source Channel: {source_chat.title}\nTarget Channel: {target_chat.title}\nSkip messages: <code>{skip}</code>\nTotal Messages: <code>{last_msg_id}</code>\nFile Caption: {caption}\n\nDo you want to Start Forwarding ?**",
+        text="**Source Channel: {source_chat.title}\nTarget Channel: {target_chat.title}\nSkip messages: <code>{skip}</code>\nTotal Messages: <code>{total}</code>\nFile Caption: {caption}\n\nDo you want to Start Forwarding ?**",
         reply_markup=InlineKeyboardMarkup(button)
     )
 

@@ -27,14 +27,9 @@ Dᴇᴠᴇʟᴏᴘᴇʀ:
 
     HELP_TXT = """
 <b>Here are all my commands:
-/start - To check if I'm alive or not
-/logs - To check my logs [Admin Only]
-/setskip - To skip a number of messages [Admin Only]
+/start :- To check if I'm alive or not
+/logs :- To check my logs [Admin Only]
+/setskip :- To skip a number of messages [Admin Only]
 /set_caption :- Set Custom Caption ✍🏻
-Example :- `/set_caption 📁 File Name :- {filename}
-
-💾 File Size :- {filesize}
-
-⏰ Default File Caption :- {caption}`
 
 This bot might be available to all in the future.</b>"""

@@ -47,7 +47,7 @@ async def forward_cmd(bot, message):
     else:
         return
     try:
-        await bot.get_chat(source_chat_id)
+        source_chat = await bot.get_chat(source_chat_id)
     except ChannelInvalid:
         return await message.reply('This may be a private channel / group. Make me an admin over there to index the files.')
     except (UsernameInvalid, UsernameNotModified):
@@ -132,7 +132,7 @@ async def start_forward(bot, userid, source_chat_id, last_msg_id):
     async with lock:
         try:
             btn = [[
-                InlineKeyboardButton("CANCEL", callback_data="cancel_forward")
+                InlineKeyboardButton("🚫 Cancel", callback_data="cancel_forward")
             ]]
             status = 'Forwarding...'
             await active_msg.edit(
@@ -151,7 +151,7 @@ async def start_forward(bot, userid, source_chat_id, last_msg_id):
                 current += 1
                 if current % 20 == 0:
                     btn = [[
-                        InlineKeyboardButton("CANCEL", callback_data="cancel_forward")
+                        InlineKeyboardButton("🚫 Cancel", callback_data="cancel_forward")
                     ]]
                     status = 'Sleeping for 30 seconds.'
                     await active_msg.edit(
@@ -170,7 +170,14 @@ async def start_forward(bot, userid, source_chat_id, last_msg_id):
                 elif not msg.media:
                     notmedia += 1
                     continue
-                elif msg.media not in [enums.MessageMediaType.VIDEO, enums.MessageMediaType.AUDIO, enums.MessageMediaType.DOCUMENT]:
+                elif msg.media not in [enums.MessageMediaType.VIDEO, enums.MessageMediaType.DOCUMENT]:
+                    unsupported += 1
+                    continue
+                media = getattr(message, message.media.value, None)
+                if not media:
+                    unsupported += 1
+                    continue
+                elif media.mime_type not in ['video/mp4', 'video/x-matroska', 'video/x-msvideo']:  # Non mp4, mkv and avi files types skipping
                     unsupported += 1
                     continue
                 try:

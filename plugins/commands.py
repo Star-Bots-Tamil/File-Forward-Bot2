@@ -63,10 +63,6 @@ async def forward_cmd(bot, message):
         return await message.reply('This may be group and iam not a admin of the group.')
     if lock.locked():
         return await message.reply_text('<b>Wait until previous process complete.</b>')
-    try:
-        target_chat = await bot.get_chat(target_chat_id)
-    except Exception as e:
-        return await message.reply(f'Error - {e}')
 
     skip = temp_utils.CURRENT.get(message.from_user.id)
     if skip:

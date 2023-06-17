@@ -82,7 +82,7 @@ async def forward_cmd(bot, message):
         InlineKeyboardButton("No", callback_data="close")
     ]]
     await message.reply_text(
-        text="**Source Channel :- {source_chat.title}\nTarget Channel :- Star Database {file_name}\nSkip messages :- <code>{skip}</code>\nTotal Messages :- <code>{total} {last_msg_id}</code>\nFile Caption :- {caption}\n\nDo you want to Start Forwarding ?**",
+        text="**Do you want to Start Forwarding ?**",
         reply_markup=InlineKeyboardMarkup(button)
     )
 

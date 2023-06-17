@@ -73,6 +73,8 @@ async def forward_cmd(bot, message):
         skip = skip
     else:
         skip = 0
+
+    target_chat_id = int(TARGET_DB)
         
     caption = CAPTION.get(message.from_user.id)
     if caption:

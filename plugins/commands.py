@@ -107,14 +107,14 @@ async def skip_msgs(bot, message):
         await message.reply(f"Successfully set SKIP number as {skip}")
         temp_utils.CURRENT = int(skip)
     else:
-        await message.reply("Give me a skip number")
+        await message.reply("**Give me a Skip Number**")
 
 @Client.on_message(filters.private & filters.command(['set_caption']))
 async def set_caption(bot, message):
     try:
         caption = message.text.split(" ", 1)[1]
     except:
-        return await message.reply("**Give me a caption.\n\n**`/set_caption <b>{file_name}</b>`")
+        return await message.reply("**Give me a caption.\n\nFile Caption Keys\n• `{filename}` :- Replaced by the Filename.\n• `{file_size}` :- Replaced by the Filesize.\n• `{caption}` :- Default File Caption ✍🏻**`/set_caption <b>{file_name}</b`")
     CAPTION[message.from_user.id] = caption
     await message.reply(f"Successfully set file caption.\n\n{caption}")
 
